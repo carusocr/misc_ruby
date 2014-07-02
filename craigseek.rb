@@ -13,7 +13,10 @@ agent.get(searchsite) do |page|
 		search.query = searchterm
 	end.submit
 	search_result.root.children.xpath("//p").each do |link|
-		a << link.text.gsub(/\n/,'').gsub(/\s+/,' ').gsub(/pic/,'').strip + "\n\t" + link.xpath('a').first.attributes['href'] + "\n\n"
+		desc = link.text.gsub(/\n/,'').gsub(/\s+/,' ').gsub(/pic/,'').strip
+    url = link.xpath('a').first.attributes['href'].text
+    url = "philadelphia.craigslist.org" + url if url !~ /org/
+		puts "#{desc}\n\t#{url}"
 	end
 end
-Pony.mail(:to => 'carusocr@ldc.upenn.edu', :from => 'craigseek@devbox', :subject => "#{searchterm} Search Results", :body => a)
+#Pony.mail(:to => 'carusocr@ldc.upenn.edu', :from => 'craigseek@devbox', :subject => "#{searchterm} Search Results", :body => a)
