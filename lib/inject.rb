@@ -1,8 +1,6 @@
 # Return true if all elements are equal to the argument, false otherwise.
 def all_equal?(argument, elements)
-  a = true 
-  elements.inject(argument) { |z,x| a = false if z != x; x }
-  a
+  elements.inject(argument) { |z,x| z != x ? false : x }
 end
 
 # Return the number of elements that are equal to the argument.
@@ -17,6 +15,7 @@ end
 #   # => 'value'
 def nested_key(keys, hash)
   # TODO: implement using inject
+  keys.inject(hash) { |h,k| h.nil? ? nil : h[k] }
 end
 
 class Category < ActiveRecord::Base

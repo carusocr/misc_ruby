@@ -50,13 +50,11 @@ describe 'inject exercise' do
 
   context '#nested_key' do
     it 'finds the nested key when present' do
-      pending
       data = { outer: { inner: 'value' } }
       expect(nested_key([:outer, :inner], data)).to eq('value')
     end
 
     it 'returns nil when missing a level' do
-      pending
       data = { other: 'value' }
       expect(nested_key([:outer, :inner], data)).to be_nil
     end
