@@ -75,7 +75,6 @@ describe 'inject exercise' do
 
   context Category, '#find_by_path' do
     it 'finds a top-level category' do
-      pending
       Category.create!(name: 'Findme')
 
       expect(Category.find_by_path('Findme').try(:name)).to eq('Findme')
@@ -95,6 +94,7 @@ describe 'inject exercise' do
     end
 
     it 'returns nil when missing a level' do
+      pending
       Category.create!(name: 'Root')
 
       result = Category.find_by_path('Root/Child/Grandchild')

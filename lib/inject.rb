@@ -36,6 +36,9 @@ class Category < ActiveRecord::Base
   # within a parent category named "Parent."
   def self.find_by_path(path)
     # TODO: implement using inject
+    relation = self
+    path.split('/').inject(relation) { |r,q| r.find_by_name("#{q}") }
+    
   end
 
   private
