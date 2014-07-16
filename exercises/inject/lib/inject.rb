@@ -1,8 +1,6 @@
 # Return true if all elements are equal to the argument, false otherwise.
 def all_equal?(argument, elements)
-  a = true 
-  elements.inject(argument) { |z,x| a = false if z != x; x }
-  a
+  elements.inject(argument) { |z,x| z != x ? false : x }
 end
 
 # Return the number of elements that are equal to the argument.
@@ -16,7 +14,7 @@ end
 #   nested_key([:outer, :inner], { outer: { inner: 'value' } })
 #   # => 'value'
 def nested_key(keys, hash)
-  # TODO: implement using inject
+  keys.inject(hash) { |h,k| h.nil? ? nil : h[k] }
 end
 
 class Category < ActiveRecord::Base
@@ -28,12 +26,8 @@ class Category < ActiveRecord::Base
   # For example, the query "hey there" should match any category with a body
   # containing both "hey" and "there."
   def self.search(query)
-    # TODO: rewrite to use inject instead of each and mutation
     relation = self
-    query.split(' ').each do |keyword|
-      relation = relation.where('body LIKE ?', "%#{keyword}%")
-    end
-    relation
+    query.split(' ').inject(relation) { |r,q| r.where('body LIKE ?', "%#{q}%") }
   end
 
   # Find categories using a slash-separated list of names.
@@ -42,6 +36,9 @@ class Category < ActiveRecord::Base
   # within a parent category named "Parent."
   def self.find_by_path(path)
     # TODO: implement using inject
+    relation = self
+    path.split('/').inject(relation) { |r,q| r.find_by_name("#{q}") }
+    
   end
 
   private
