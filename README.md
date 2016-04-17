@@ -1,6 +1,6 @@
 misc_ruby
 =========
 
-ruby scripts that have no business elsewhere!
+mostly one-off scripts
 
 exercises directory contains thoughtbot exercises
